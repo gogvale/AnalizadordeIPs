@@ -24,6 +24,7 @@ class logsPaloAlto():
 
 
     def POST(self, IpAddr):
+        """Asks Palo Alto for a query and returns a job #"""
         self.querystring = {"type":"log","log-type":"traffic","query":"( addr in {} )".format(IpAddr)}
         ans = requests.request("GET", self.url, data=self.payload, headers=self.headers, params=self.querystring, verify=False)
         self.response = ans
@@ -44,17 +45,22 @@ class logsPaloAlto():
 
         
     def GET(self,jobID):
+        """Gets response from jobID"""
         self.querystring = {"type":"log","action":"get","job-id":jobID}
         ans = requests.request("GET", self.url, data=self.payload, headers=self.headers, params=self.querystring, verify=False)
         self.response = ans
         return ans
     
     def getJobStatusCode(self):
+        """
+        200 == 'OK'
+        """
         return self.response.status_code
 
 if __name__ == "__main__":
     tmp = logsPaloAlto()
     job = tmp.POST('68.183.70.42')
-    ans = tmp.GET(job)
+    
+    ans = tmp.GET(tmp.job)
     print(ans.text)
     #done

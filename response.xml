@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response status="success">
+    <result>
+        <job>
+            <tenq>10:50:32</tenq>
+            <tdeq>10:50:32</tdeq>
+            <tlast>18:00:00</tlast>
+            <status>ACT</status>
+            <id>1081</id>
+            <cached-logs>0</cached-logs>
+        </job>
+        <log>
+            <logs count="0" progress="0"/>
+        </log>
+    </result>
+</response>

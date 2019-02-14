@@ -2,7 +2,7 @@ import requests
 
 url = "https://10.4.29.121/api/"
 
-
+querystring = {"type":"log","log-type":"traffic","query":"( addr in 68.183.70.42 )"}
 
 payload = ""
 headers = {
