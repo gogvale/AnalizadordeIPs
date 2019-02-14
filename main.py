@@ -51,11 +51,6 @@ class logsPaloAlto():
         self.response = ans
         return ans
     
-    def getJobStatusCode(self):
-        """
-        200 == 'OK'
-        """
-        return self.response.status_code
 
 if __name__ == "__main__":
     tmp = logsPaloAlto()
@@ -63,4 +58,3 @@ if __name__ == "__main__":
     
     ans = tmp.GET(tmp.job)
     print(ans.text)
-    #done
