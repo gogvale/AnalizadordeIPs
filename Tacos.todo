@@ -4,4 +4,11 @@ Gabo:
 Edson:
     ☐ Sacar <status> del XML ("ACT"|"DONE")
     ☐ Sacar Logs del XML
-        ☐ Pedir a Cheo el dummy XML
+        ✔ Pedir a Cheo el dummy XML @done(19-02-14 11:39)
+        ☐ Tomar valores de Cheo
+            ☐ Origen
+            ☐ Destino
+            ☐ Regla
+            ☐ Pais
+            ☐ Device Name
+            ☐ Aplicación
