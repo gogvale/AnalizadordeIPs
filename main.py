@@ -14,7 +14,7 @@ def loadCSV(file):
 
 if __name__ == "__main__":
     # file = sys.argv[1]
-    file = '/home/gabriel/Downloads/analisis Block-malicious_ip.csv'
+    file = '~/Downloads/analisis Block-malicious_ip.csv'
     IP_List = loadCSV(file)
 
     tmp = pa.logsPaloAlto()
@@ -22,5 +22,4 @@ if __name__ == "__main__":
 
     for ip in IP_List:
         jobList.append(tmp.POST(ip))
-    
     
