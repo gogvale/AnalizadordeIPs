@@ -1,4 +1,6 @@
 import requests
+import xml.etree.cElementTree as et
+import pandas as pd
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -21,34 +23,38 @@ class logsPaloAlto():
         print('Setup finished…')
 
 
-    def POST(self, IpAddr, printAns=False):
+    def POST(self, IpAddr):
         self.querystring = {"type":"log","log-type":"traffic","query":"( addr in {} )".format(IpAddr)}
         ans = requests.request("GET", self.url, data=self.payload, headers=self.headers, params=self.querystring, verify=False)
-        self.response = ans.text
-
-        if printAns:
-            print(self.response)
+        self.response = ans
+        print('Done posting…')
 
         self.job = self.getJobID()
-        print('Done posting…')
         return self.job
 
 
     def getJobID(self):
         try:
-            ans = self.response.split('</line>')[0].split(' ')[-1]
+            ans = et.fromstring(self.response.content).getchildren()[0].findtext('job')
+            print('Job:',ans)
         except:
             print("Couldn't get response. Please check log")
             ans=''
         return ans
+
+        
     def GET(self,jobID):
         self.querystring = {"type":"log","action":"get","job-id":jobID}
         ans = requests.request("GET", self.url, data=self.payload, headers=self.headers, params=self.querystring, verify=False)
-        self.response = ans.text
+        self.response = ans
         return ans
+    
+    def getJobStatusCode(self):
+        return self.response.status_code
 
 if __name__ == "__main__":
     tmp = logsPaloAlto()
     job = tmp.POST('68.183.70.42')
     ans = tmp.GET(job)
     print(ans.text)
+    #done
