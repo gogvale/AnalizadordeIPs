@@ -61,6 +61,8 @@ def main(ip=''):
         ip = ip
     else:
         ip = '68.183.70.42'
+    
+    tmp.POST(ip)
 
     ans = tmp.GET(tmp.job)
     
