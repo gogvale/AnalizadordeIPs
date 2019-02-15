@@ -5,10 +5,15 @@ import csv
 
 class toCSV():
     def __init__(self, file='logs.xml'):
-        self.XML = self.ParseFile(file)
+        self.file = file
+        self.ListInitialization()
+        self.setup()
+    
+    def setup(self):
+        self.XML = self.ParseFile(self.file)
         self.Root = self.XML.getroot()
         self.Result = self.Root.find('result')
-        self.ListInitialization()
+        
 
     def ParseFile(self, file):
         return ET.parse(file)
