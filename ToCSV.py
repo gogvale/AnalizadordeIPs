@@ -7,9 +7,6 @@ Root= XML.getroot()
 Result= Root.find('result')
 
 def StatusCheck():
-    XML= ET.parse('logs.xml')
-    Root= XML.getroot()
-    Result= Root.find('result')
     Status= Result.find('job')
 
     for job in Status.getiterator():
