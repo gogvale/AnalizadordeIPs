@@ -49,8 +49,7 @@ if __name__ == "__main__":
     tmp = pa.logsPaloAlto()
     XML_Object = ToCSV.toCSV(filename)
 
-    for idx, ip in IP_List:
-        print('process {}/{} ({:.2f}%)'.format(idx +
-                                                1, len(IP_List), 100*(1-idx/len(IP_List)))
+    for idx, ip in enumerate(IP_List):
+        print('Progress:','{0:.2f}'.format(100*idx/len(IP_List)),'\b%')
         XML_Object = waitAnswer(tmp, tmp.POST(ip), XML_Object)
     XML_Object.SaveToCSV()
