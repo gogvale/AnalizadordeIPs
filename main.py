@@ -14,30 +14,32 @@ def loadCSV(file):
 def writeXML(XML_string,fileName):
     with open(fileName,mode='w') as file:
         file.write(XML_string)
+def waitAnswer(tmp, job):
+    filename = 'Response.xml'
+    queryStatus = 'ACT'
+    attempt = 0
+    while queryStatus == 'ACT':
+        
+        attempt += 1
+        ans = tmp.GET(job)
+        writeXML(ans.text,filename)
+        XML_Object = ToCSV.toCSV(filename)
+        queryStatus = XML_Object.StatusCheck()
+        if queryStatus != 'FIN':
+            time.sleep(3)
 
+        print('{status}…({attempt})'.format(
+            status=queryStatus, attempt=attempt), end='\r')
+
+    print('Query finished.')
+    print(ans.text)
+    
 if __name__ == "__main__":
 
     file = '~/Downloads/analisis Block-malicious_ip.csv'
     IP_List = loadCSV(file)
 
     tmp = pa.logsPaloAlto()
-    jobList = []
 
     for ip in IP_List:
-        jobList.append(tmp.POST(ip))
-
-    for job in jobList:
-        filename = 'Response.xml'
-        queryStatus = 'ACT'
-        attempt = 0
-        while queryStatus is 'ACT':
-            attempt += 1
-            ans = tmp.GET(job)
-            writeXML(ans.text,filename)
-            XML_Object = ToCSV.toCSV(filename)
-            queryStatus = XML_Object.StatusCheck()
-            if queryStatus is 'ACT':
-                time.sleep(3)
-
-            print('{status}…({attempt})'.format(
-                status=queryStatus, attempt=attempt), end='\r')
+        waitAnswer(tmp, tmp.POST(ip))
